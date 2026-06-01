@@ -112,6 +112,8 @@ td{padding:6px 6px;border-bottom:0.5px solid #f0f0f0;vertical-align:middle}
         <option value="Ropa">👗 Ropa</option>
         <option value="Entretenimiento">🎬 Entretenimiento</option>
         <option value="Casa">🏠 Casa</option>
+        <option value="Deporte">⚽ Deporte</option>
+        <option value="Restaurante">🍕 Restaurante</option>
         <option value="Otro">📦 Otro</option>
       </select>
     </div>
@@ -170,6 +172,8 @@ td{padding:6px 6px;border-bottom:0.5px solid #f0f0f0;vertical-align:middle}
         <option value="Ropa">👗 Ropa</option>
         <option value="Entretenimiento">🎬 Entretenimiento</option>
         <option value="Casa">🏠 Casa</option>
+        <option value="Deporte">⚽ Deporte</option>
+        <option value="Restaurante">🍕 Restaurante</option>
         <option value="Otro">📦 Otro</option>
       </select>
     </div>
@@ -184,7 +188,7 @@ td{padding:6px 6px;border-bottom:0.5px solid #f0f0f0;vertical-align:middle}
  
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbz-WSTIphkpyoYdNhPxjZ81c5cbHK-kfDSGrExKBFke_dEwL2ZuoNXoPtADwzrE7GM1Og/exec';
-const CAT_COLORS={'Alimentación':'#1D9E75','Transporte':'#378ADD','Salud':'#D4537E','Servicios':'#EF9F27','Ropa':'#7F77DD','Entretenimiento':'#D85A30','Casa':'#639922','Otro':'#888780'};
+const CAT_COLORS={'Alimentación':'#1D9E75','Transporte':'#378ADD','Salud':'#D4537E','Servicios':'#EF9F27','Ropa':'#7F77DD','Entretenimiento':'#D85A30','Casa':'#639922','Deporte':'#E67E22','Restaurante':'#E74C3C','Otro':'#888780'};
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
  
 let movs=[], editId=null, charts={}, pendientes=[];
@@ -250,10 +254,10 @@ async function cargarDesdeSheets(){
       saveLocal();
       poblarSelectores();
       render();
-      toast('✅ Datos cargados desde Google Sheets');
+      
     }
   }catch(e){
-    toast('📱 Sin conexión — usando datos locales');
+    
   }
 }
  
