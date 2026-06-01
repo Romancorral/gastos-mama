@@ -255,13 +255,13 @@ async function cargarDesdeSheets(){
       movs=res.data.map(m=>({...m,monto:parseFloat(m.monto)||0}));
       pendientes=[];
       saveLocal();
-      poblarSelectores();
-      render();
-      
-    }
+    } else { loadLocal(); }
   }catch(e){
-    
+    loadLocal();
   }
+  poblarSelectores();
+  document.getElementById('fecha').value=hoy();
+  render();
 }
  
 function toggleCat(){
@@ -466,11 +466,11 @@ function renderReporte(){
 document.getElementById('modal-bg').addEventListener('click',function(e){if(e.target===this)cerrarModal();});
  
 // INICIO
+loadLocal();
+poblarSelectores();
 document.getElementById('fecha').value=hoy();
-// Muestra loading mientras carga Sheets
-document.getElementById('view-registro').innerHTML='<p class="empty" style="padding:2rem">Cargando...</p>';
+render();
 cargarDesdeSheets();
 </script>
 </body>
 </html>
- 
