@@ -313,7 +313,7 @@ function showTab(t){
   if(t==='reporte')renderReporte();
 }
  
-function agregar(){
+async function agregar(){
   const desc=document.getElementById('desc').value.trim();
   const monto=parseFloat(document.getElementById('monto').value);
   const tipo=document.getElementById('tipo').value;
@@ -323,11 +323,21 @@ function agregar(){
   if(!desc||isNaN(monto)||monto<=0){document.getElementById('desc').focus();return;}
   const localId='local_'+Date.now();
   movs.unshift({id:localId,mes,desc,monto,tipo,cat,fecha});
-  pendientes.push({action:'add',localId,mes,desc,monto,tipo,cat,fecha});
-  saveLocal();poblarSelectores();render();
+  saveLocal();
   document.getElementById('desc').value='';document.getElementById('monto').value='';document.getElementById('fecha').value=hoy();
-  toast('💾 Guardado');
-  sincronizarPendientes();
+  toast('💾 Guardando...');
+  try{
+    const res=await jsonp({action:'add',mes,desc,monto,tipo,cat,fecha});
+    if(res.ok){
+      const idx=movs.findIndex(m=>m.id===localId);
+      if(idx>=0)movs[idx].id=res.id;
+      saveLocal();toast('✅ Guardado');
+    }
+  }catch(e){
+    pendientes.push({action:'add',localId,mes,desc,monto,tipo,cat,fecha});
+    saveLocal();toast('📱 Guardado sin conexión');
+  }
+  poblarSelectores();render();
 }
  
 function render(){
@@ -474,3 +484,4 @@ cargarDesdeSheets();
 </script>
 </body>
 </html>
+ 
