@@ -209,11 +209,8 @@ function toast(msg){
   setTimeout(()=>t.classList.remove('show'),2500);
 }
  
-function saveLocal(){localStorage.setItem('gastos_v4',JSON.stringify({movs,pendientes}))}
-function loadLocal(){
-  try{const d=JSON.parse(localStorage.getItem('gastos_v4')||'{}');movs=d.movs||[];pendientes=d.pendientes||[];}
-  catch(e){movs=[];pendientes=[];}
-}
+function saveLocal(){}
+function loadLocal(){movs=[];pendientes=[];}
  
 function jsonp(params){
   return new Promise((res,rej)=>{
@@ -476,9 +473,9 @@ function renderReporte(){
 document.getElementById('modal-bg').addEventListener('click',function(e){if(e.target===this)cerrarModal();});
  
 // INICIO
-loadLocal();
-poblarSelectores();
+localStorage.removeItem('gastos_v4');
 document.getElementById('fecha').value=hoy();
+poblarSelectores();
 render();
 cargarDesdeSheets();
 </script>
